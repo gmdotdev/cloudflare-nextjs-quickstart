@@ -28,12 +28,11 @@ jobs:
       - name: Build
         run: pnpm run pages:build
 
-      - name: Publish
-        uses: cloudflare/pages-action@v1
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          branch: main
-          directory: .vercel/output/static
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          projectName: cloudflare-nextjs-quickstart
+          command: pages deploy
+          packageManager: pnpm
+          wranglerVersion: "3.53.1"
